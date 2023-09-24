@@ -1,0 +1,14 @@
+2023-09-21 13:46:02 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "BOOK_ENTITY" not found; SQL statement:
+insert into book_entity (name,id) values (?,default) [42102-214]
+2023-09-21 13:46:06 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "BOOK_ENTITY" not found; SQL statement:
+insert into book_entity (name,id) values (?,default) [42102-214]
+2023-09-21 13:47:33 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: The object is already closed [90007-214]
+2023-09-21 13:50:41 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: The object is already closed [90007-214]
+2023-09-21 14:33:33 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: The object is already closed [90007-214]
+2023-09-21 14:33:58 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: The object is already closed [90007-214]
