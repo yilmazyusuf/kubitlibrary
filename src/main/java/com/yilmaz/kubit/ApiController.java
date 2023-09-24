@@ -2,6 +2,7 @@ package com.yilmaz.kubit;
 
 import com.yilmaz.kubit.entities.Books;
 import com.yilmaz.kubit.services.BookServiceImplementation;
+import com.yilmaz.kubit.services.ResponseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,18 +16,17 @@ import java.util.List;
 public class ApiController {
     @Autowired
     private BookServiceImplementation bookService;
-
-    @GetMapping("/hello")
-    public String hello() {
-        return "Full Stack Java with Spring Boot & VueJS!";
-    }
+    @Autowired
+    private ResponseService responseService;
 
     @PostMapping("/books")
-    public ResponseEntity<Books> create(@RequestBody Books book) {
+    public ResponseEntity<ResponseService> create(@RequestBody Books book) {
 
         Books savedBook = bookService.createBook(book);
 
-        return new ResponseEntity<>(book,HttpStatus.CREATED);
+        responseService.redirectTo("/books");
+
+        return new ResponseEntity<>(responseService,HttpStatus.CREATED);
     }
 
     @GetMapping("/books")
@@ -46,13 +46,15 @@ public class ApiController {
     }
 
     @PutMapping("/books/edit/{id}")
-    public ResponseEntity<Books> updateBook(@PathVariable("id") long id,@RequestBody Books book) {
+    public ResponseEntity<ResponseService> updateBook(@PathVariable("id") long id,@RequestBody Books book) {
 
         Books existingBook = bookService.getById(id);
         existingBook.setName(book.getName());
         Books updatedBook = bookService.createBook(existingBook);
 
-        return new ResponseEntity<>(updatedBook,HttpStatus.OK);
+        responseService.redirectTo("/books");
+
+        return new ResponseEntity<>(responseService,HttpStatus.OK);
     }
 
 }
