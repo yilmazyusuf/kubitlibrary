@@ -9,18 +9,19 @@
       <div class="col-md-6">
         <div class="card mb-5">
           <div class="card-body">
-            <form v-on:submit.prevent>
+            <form v-on:submit.prevent  novalidate>
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label" for="name">Name</label>
                 <div class="col-sm-10">
                   <input
-                      class="form-control"
+                      class="form-control is-invalid"
                       id="name"
                       type="text"
                       name="name"
                       v-model="book.name"
                       placeholder="Name"
                   />
+                  <div class="invalid-feedback">Please provide a valid city.</div>
                 </div>
               </div>
 
@@ -65,11 +66,17 @@ export default {
                 router.push({ path: response.data.redirectUrl })
               }
             }
-            console.log(response.data);
+
           })
           .catch(e => {
-            console.log(e);
+            console.log(e.response.status);
+            console.log(e.response.data);
+            if(e.response.status == 400){
+            console.log("400");
+            }
+
           });
+
     }
   }
 }
