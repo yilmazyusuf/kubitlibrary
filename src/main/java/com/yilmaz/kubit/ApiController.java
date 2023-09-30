@@ -51,10 +51,13 @@ public class ApiController {
     }
 
     @PutMapping("/books/edit/{id}")
-    public ResponseEntity<ResponseService> updateBook(@PathVariable("id") long id,@RequestBody Books book) {
+    public ResponseEntity<ResponseService> updateBook(
+            @PathVariable("id") long id,
+            @Valid @RequestBody Books book) {
 
         Books existingBook = bookService.getById(id);
         existingBook.setName(book.getName());
+        existingBook.setDescription(book.getDescription());
         Books updatedBook = bookService.createBook(existingBook);
 
         responseService.redirectTo("/books");
@@ -76,3 +79,5 @@ public class ApiController {
     }
 
 }
+//https://developers.google.com/books/
+//https://isbnsearch.org/isbn/9781803233307

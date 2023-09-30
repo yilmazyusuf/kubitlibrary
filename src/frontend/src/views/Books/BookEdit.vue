@@ -11,8 +11,8 @@
           <div class="card-body">
             <form v-on:submit.prevent>
               <div class="form-group row">
-                <label class="col-sm-2 col-form-label" for="name">Name</label>
-                <div class="col-sm-10">
+                <label class="col-sm-3 col-form-label" for="name">Name</label>
+                <div class="col-sm-9">
                   <input
                       class="form-control"
                       id="name"
@@ -25,8 +25,20 @@
               </div>
 
               <div class="form-group row">
-                <label class="col-sm-2 col-form-label"></label>
-                <div class="col-sm-10">
+                <label class="col-sm-3 col-form-label" for="description">Description</label>
+                <div class="col-sm-9">
+                  <textarea
+                      class="form-control"
+                      id="description"
+                      name="description"
+                      v-model="book.description"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9">
                   <button class="btn btn-primary" @click="updateBook">
                     Update Book
                   </button>
@@ -44,6 +56,7 @@
 
 <script>
 import BookData from "../../services/BookData";
+import FormHelper from "../../services/FormHelper";
 import router from "@/router";
 
 export default {
@@ -52,15 +65,18 @@ export default {
     return {
       book: {
         'id': null,
-        'name': ''
+        'name': '',
+        'description': ''
       }
     }
   },
   methods: {
     updateBook() {
       var data = {
-        name: this.book.name
+        name: this.book.name,
+        description: this.book.description
       };
+      FormHelper.clearFormErrors();
       BookData.updateBook(this.book.id, data)
           .then(response => {
             if(response.data.status === true){
@@ -71,7 +87,9 @@ export default {
             console.log(response.data);
           })
           .catch(e => {
-            console.log(e);
+                if(e.response.status == 400){
+                    FormHelper.showInputErrors(e.response.data);
+                }
           });
     }
 

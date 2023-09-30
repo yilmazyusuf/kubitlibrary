@@ -11,23 +11,34 @@
           <div class="card-body">
             <form v-on:submit.prevent  novalidate>
               <div class="form-group row">
-                <label class="col-sm-2 col-form-label" for="name">Name</label>
-                <div class="col-sm-10">
+                <label class="col-sm-3 col-form-label" for="name">Name</label>
+                <div class="col-sm-9">
                   <input
-                      class="form-control is-invalid"
+                      class="form-control"
                       id="name"
                       type="text"
                       name="name"
                       v-model="book.name"
                       placeholder="Name"
                   />
-                  <div class="invalid-feedback">Please provide a valid city.</div>
                 </div>
               </div>
 
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label" for="description">Description</label>
+                  <div class="col-sm-9">
+                    <textarea
+                        class="form-control"
+                        id="description"
+                        name="description"
+                        v-model="book.description"
+                    />
+                  </div>
+                </div>
+
               <div class="form-group row">
-                <label class="col-sm-2 col-form-label"></label>
-                <div class="col-sm-10">
+                <label class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9">
                   <button class="btn btn-primary" @click="saveBook">
                     Add New Book
                   </button>
@@ -45,20 +56,28 @@
 
 <script>
 import BookData from "../../services/BookData";
+import FormHelper from "../../services/FormHelper";
+
 import router from '../../router'
 
 export default {
   name: 'add-book',
   data() {
     return {
-      book: {name: ""}
+      book: {
+        name: "",
+        description: "",
+      }
     }
   },
   methods: {
     saveBook() {
       let data = {
-        name: this.book.name
+        name: this.book.name,
+        description: this.book.description,
       };
+
+      FormHelper.clearFormErrors();
       BookData.create(data)
           .then(response => {
             if(response.data.status === true){
@@ -66,15 +85,11 @@ export default {
                 router.push({ path: response.data.redirectUrl })
               }
             }
-
           })
           .catch(e => {
-            console.log(e.response.status);
-            console.log(e.response.data);
-            if(e.response.status == 400){
-            console.log("400");
-            }
-
+                if(e.response.status == 400){
+                   FormHelper.showInputErrors(e.response.data);
+                }
           });
 
     }
