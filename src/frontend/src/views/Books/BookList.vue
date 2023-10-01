@@ -10,7 +10,7 @@
         <div class="card mb-5">
           <div class="card-body">
             <div class="responsive">
-              <table class="table table-hover">
+              <table class="table table-striped">
                 <thead>
                 <tr>
                   <th style="width: 90%">Name</th>
@@ -22,7 +22,7 @@
                   <td>{{ book.name }}</td>
                   <td>
                     <a
-                        class="btn btn-success"
+                        class="btn btn-success mr-1"
                         v-bind:href="'/books/edit/'+book.id"
                     ><i class="nav-icon i-Pen-2"></i
                     ></a>
@@ -59,7 +59,6 @@ export default {
     BookData.getAll()
         .then(response => {
           this.books = response.data
-          console.log(response.data);
         })
         .catch(e => {
           console.log(e);
