@@ -43,8 +43,22 @@
                     Add New Book
                   </button>
                 </div>
+
               </div>
             </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card mb-5">
+          <div class="card-body">
+            <h6 class="card-title">Book Cover</h6>
+            <!--https://github.com/saimow/vue-media-upload -->
+            <Uploader
+                server="/api/books/cover/upload"
+                @change="changeMedia"
+
+            />
           </div>
         </div>
       </div>
@@ -57,7 +71,7 @@
 <script>
 import BookData from "../../services/BookData";
 import FormHelper from "../../services/FormHelper";
-
+import Uploader from 'vue-media-upload'
 import router from '../../router'
 
 export default {
@@ -67,7 +81,8 @@ export default {
       book: {
         name: "",
         description: "",
-      }
+      },
+       media: []
     }
   },
   methods: {
@@ -75,6 +90,7 @@ export default {
       let data = {
         name: this.book.name,
         description: this.book.description,
+        media: this.media.length > 0 ? this.media[0]['name']: null,
       };
 
       FormHelper.clearFormErrors();
@@ -82,10 +98,10 @@ export default {
           .then(response => {
             if(response.data.status === true){
               if(response.data.redirect === true){
-                    FormHelper.toastSuccess('Book created successfully');
+                   router.push({ path: response.data.redirectUrl});
                     setTimeout(function() {
-                        router.push({ path: response.data.redirectUrl});
-                    }, 3000);
+                         FormHelper.toastSuccess('Book created successfully');
+                    }, 1);
               }
             }
           })
@@ -95,7 +111,13 @@ export default {
                 }
           });
 
+    },
+    changeMedia(media){
+      this.media = media;
     }
-  }
+  },
+  components: {
+        Uploader
+      },
 }
 </script>

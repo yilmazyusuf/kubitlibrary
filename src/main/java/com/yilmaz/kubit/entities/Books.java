@@ -7,7 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 public class Books {
     @Id
@@ -18,7 +18,12 @@ public class Books {
 
     @NotBlank(message = "Description is mandatory")
     private String description;
-    public Books() {}
+
+    private String media;
+
+    public Books() {
+    }
+
     public Books(String name) {
         this.name = name;
     }
@@ -45,5 +50,13 @@ public class Books {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getMedia() {
+        return media;
+    }
+
+    public void setMedia(String media) {
+        this.media = media;
     }
 }

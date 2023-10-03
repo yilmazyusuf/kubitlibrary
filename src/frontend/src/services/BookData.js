@@ -16,6 +16,9 @@ class BookData {
     updateBook(id, data) {
         return http.put("/books/edit/" + id, data);
     }
+    coverUpload(data) {
+        return http.post("/books/cover/upload", data);
+    }
 }
 
 export default new BookData();

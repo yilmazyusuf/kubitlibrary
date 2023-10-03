@@ -13,12 +13,14 @@
               <table class="table table-striped">
                 <thead>
                 <tr>
-                  <th style="width: 90%">Name</th>
+                  <th style="width: 20%">Cover</th>
+                   <th style="width: 60%">Name</th>
                   <th>#</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr v-for="book in books" v-bind:key="book.id">
+                  <td><img  v-bind:src="'/images/books/'+book.media " style="max-height: 100px"> </td>
                   <td>{{ book.name }}</td>
                   <td>
                     <a

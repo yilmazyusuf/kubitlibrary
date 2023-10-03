@@ -81,10 +81,12 @@ export default {
           .then(response => {
             if(response.data.status === true){
               if(response.data.redirect === true){
-                FormHelper.toastSuccess('Book updated successfully');
+                router.push({ path: response.data.redirectUrl});
                 setTimeout(function() {
-                    router.push({ path: response.data.redirectUrl});
-                }, 3000);
+                    FormHelper.toastSuccess('Book updated successfully');
+                }, 1);
+
+
               }
             }
             console.log(response.data);
