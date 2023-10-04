@@ -1,3 +1,8 @@
+<style>
+.btn-block + .btn-block{
+    margin-top:0px;
+}
+</style>
 <template>
   <div class="main-content">
     <div class="breadcrumb">
@@ -5,43 +10,36 @@
     </div>
     <div class="separator-breadcrumb border-top"></div>
 
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card mb-5">
-          <div class="card-body">
-            <div class="responsive">
-              <table class="table table-striped">
-                <thead>
-                <tr>
-                  <th style="width: 20%">Cover</th>
-                   <th style="width: 60%">Name</th>
-                  <th>#</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-for="book in books" v-bind:key="book.id">
-                  <td><img  v-bind:src="'/images/books/'+book.media " style="max-height: 100px"> </td>
-                  <td>{{ book.name }}</td>
-                  <td>
-                    <a
-                        class="btn btn-success mr-1"
-                        v-bind:href="'/books/edit/'+book.id"
-                    ><i class="nav-icon i-Pen-2"></i
-                    ></a>
-                    <a
-                        class="btn btn-danger"
-                        v-bind:href="'/books/edit/'+book.id"
-                    ><i class="nav-icon i-Close-Window"></i
-                    ></a>
-                  </td>
-                </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+<div class="row">
+
+                            <div class="col-md-3" v-for="book in books" v-bind:key="book.id">
+                                <div class="card mb-4 o-hidden">
+                                <img class="card-img-top" v-bind:src="'/images/books/'+book.media" alt="" style="height:20rem">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ book.name }}</h5>
+
+                                        <p class="card-text">{{ $filters.currencyUSD(book.description,'150','...') }}</p>
+                                    </div>
+
+                                    <div class="card-body" style="padding-top:0">
+                                    <div class="btn-group btn-block" role="group" aria-label="Basic example">
+                                        <a v-bind:href="'/books/edit/'+book.id" class="btn btn-outline-success btn-block" type="button"><i class="nav-icon i-Pen-2"></i> Edit</a>
+                                        <a v-bind:href="'/books/edit/'+book.id" class="btn btn-outline-danger btn-block" type="button"><i class="nav-icon i-Close-Window"></i> Delete</a>
+                                                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+
+
 
     <!-- end of main-content -->
   </div>
