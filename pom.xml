@@ -61,9 +61,8 @@
 			<plugin>
 				<groupId>org.flywaydb</groupId>
 				<artifactId>flyway-maven-plugin</artifactId>
-				<version>6.5.7</version>
 				<configuration>
-					<url>jdbc:h2:file:~/Documents/IntelliJ/kubit/data/kubitdata</url>
+					<url>jdbc:h2:file:./data/kubitdata</url>
 					<user>sa</user>
 					<password></password>
 				</configuration>
