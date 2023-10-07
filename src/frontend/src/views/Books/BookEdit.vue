@@ -48,6 +48,18 @@
           </div>
         </div>
       </div>
+      <div class="col-md-5">
+              <div class="card mb-5">
+                <div class="card-body">
+                  <h6 class="card-title">Book Cover</h6>
+                  <!--https://github.com/saimow/vue-media-upload -->
+                  <Uploader
+                      server="/api/books/cover/upload"
+                      @change="changeMedia"
+                  />
+                </div>
+              </div>
+            </div>
     </div>
 
     <!-- end of main-content -->
@@ -67,14 +79,16 @@ export default {
         'id': null,
         'name': '',
         'description': ''
-      }
+      },
+      media: []
     }
   },
   methods: {
     updateBook() {
       var data = {
         name: this.book.name,
-        description: this.book.description
+        description: this.book.description,
+        media: this.media.length > 0 ? this.media[0]['name']: null,
       };
       FormHelper.clearFormErrors();
       BookData.updateBook(this.book.id, data)
@@ -96,6 +110,9 @@ export default {
                     FormHelper.showInputErrors(e.response.data);
                 }
           });
+    },
+    changeMedia(media){
+      this.media = media;
     }
 
   },

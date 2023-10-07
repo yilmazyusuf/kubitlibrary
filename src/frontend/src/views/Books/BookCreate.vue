@@ -32,6 +32,7 @@
                         id="description"
                         name="description"
                         v-model="book.description"
+                        style="height:100px"
                     />
                   </div>
                 </div>
@@ -49,7 +50,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-5">
         <div class="card mb-5">
           <div class="card-body">
             <h6 class="card-title">Book Cover</h6>
@@ -57,7 +58,6 @@
             <Uploader
                 server="/api/books/cover/upload"
                 @change="changeMedia"
-
             />
           </div>
         </div>
@@ -71,7 +71,6 @@
 <script>
 import BookData from "../../services/BookData";
 import FormHelper from "../../services/FormHelper";
-import Uploader from 'vue-media-upload'
 import router from '../../router'
 
 export default {
@@ -115,9 +114,6 @@ export default {
     changeMedia(media){
       this.media = media;
     }
-  },
-  components: {
-        Uploader
-      },
+  }
 }
 </script>

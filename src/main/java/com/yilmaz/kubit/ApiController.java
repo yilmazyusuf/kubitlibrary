@@ -63,6 +63,7 @@ public class ApiController {
         Books existingBook = bookService.getById(id);
         existingBook.setName(book.getName());
         existingBook.setDescription(book.getDescription());
+        existingBook.setMedia(book.getMedia());
         Books updatedBook = bookService.createBook(existingBook);
 
         responseService.redirectTo("/books");
